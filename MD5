@@ -1,0 +1,15 @@
+5eb310af4477acad5fcfed5ab04342b9 *DESCRIPTION
+e6126fe0381a3a8c13c5784ae566044a *LICENSE
+3c3ec629a0a0a7f9752d49bf585c9055 *NAMESPACE
+89ee9700dc773cf8342368cd6811b52e *R/plug.R
+2d2624ef7724e64dbf223550106c43d1 *README.md
+567e6f2d17eeb87432019cfd5be43f93 *man/figures/logo.png
+0aed4fbbae751f5689ec9f583b3b819d *man/figures/plug.svg
+4f07f18f19d5d6b348e22732950981cd *man/figures/plugHex.png
+c0f50758e88d73464c8ae2d2c8da67b3 *man/figures/plugHex.svg
+97594f9d80e51bcb7bd6e0bf49047a9c *man/plug_download_base.Rd
+61910a7169a20c5e19f3f07d4d2be603 *man/plug_execute_query.Rd
+02d147b75f187b465334c6a1bff82a32 *man/plug_get_valid_token.Rd
+9f7778604ad0f9bdf13c47c2f13604da *man/plug_list_credentials.Rd
+5bb307c2c94f193f76f276acb6b6d1e9 *man/plug_list_tokens.Rd
+49e635a37e88e990a97cb60f417db42a *man/plug_store_credentials.Rd
