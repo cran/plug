@@ -8,7 +8,9 @@ plug_execute_query(
   sql_template,
   endpoint = "https://plug.der.pe.gov.br/MadrixApi/executeQuery",
   verbosity = 0,
-  ...
+  ...,
+  auth_endpoint = "https://plug.der.pe.gov.br/MadrixApi/authenticate/",
+  .envir = parent.frame()
 )
 }
 \arguments{
@@ -19,18 +21,42 @@ plug_execute_query(
 \item{verbosity}{The verbosity level of the API request (0 = none, 1 = minimal, 2 = detailed).}
 
 \item{...}{Named arguments to replace placeholders in the SQL template.}
+
+\item{auth_endpoint}{The endpoint URL for generating the token.}
+
+\item{.envir}{The environment in which placeholders not supplied in \code{...} are evaluated.}
 }
 \value{
 A tibble containing the query results.
 }
 \description{
 This function executes a user-defined SQL query on the Plug database, with safe query construction
-using \code{glue_sql}.
+using the same placeholder syntax as \code{\link[glue:glue_sql]{glue::glue_sql()}}.
+}
+\details{
+Values are inserted in the query as Microsoft SQL Server literals:
+\itemize{
+\item \code{{x}} inserts a quoted value: strings are wrapped in single quotes (with embedded quotes escaped),
+dates and date-times are formatted, logical values become \code{1}/\code{0} and \code{NA} becomes \code{NULL}.
+\item \verb{\{x*\}} inserts all the elements of \code{x} separated by commas, for use with \code{IN (...)}.
+\item \code{{`x`}} inserts a quoted identifier, such as a table or column name.
+\item \code{{I(x)}} inserts \code{x} as is, without any quoting.
+}
+
+Use double braces (\verb{\{\{} and \verb{\}\}}) to insert literal braces in the query.
+
+If the API rejects the cached token, a new token is generated and the query is executed again.
 }
 \examples{
-\donttest{
 \dontrun{
 data <- plug_execute_query(sql_template = "SELECT TOP 1 * FROM Contratos_VIEW")
-}
+
+# Using placeholders
+data <- plug_execute_query(
+  "SELECT TOP {n} * FROM {`base`} WHERE Ano IN ({years*})",
+  n = 10,
+  base = "Contratos_VIEW",
+  years = c(2023, 2024)
+)
 }
 }

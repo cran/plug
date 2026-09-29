@@ -15,10 +15,11 @@ This function lists all globally stored credentials (username and password) for 
 If none are found or an error occurs, it displays a message in English ("No credentials found for Plug API.")
 and returns an empty list.
 }
+\details{
+Note that the password is returned in plain text.
+}
 \examples{
-\donttest{
 \dontrun{
 plug_list_credentials()
-}
 }
 }

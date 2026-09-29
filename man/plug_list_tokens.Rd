@@ -16,9 +16,7 @@ If none are found or an error occurs, it displays a message in English ("No toke
 and returns an empty list.
 }
 \examples{
-\donttest{
 \dontrun{
 plug_list_tokens()
-}
 }
 }

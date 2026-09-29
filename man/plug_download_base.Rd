@@ -7,15 +7,19 @@
 plug_download_base(
   base_name,
   endpoint = "https://plug.der.pe.gov.br/MadrixApi/executeQuery",
-  verbosity = 0
+  verbosity = 0,
+  auth_endpoint = "https://plug.der.pe.gov.br/MadrixApi/authenticate/"
 )
 }
 \arguments{
-\item{base_name}{The name of the base from which to download all data.}
+\item{base_name}{The name of the base from which to download all data.
+It can include the schema, as in \code{"dbo.Contratos_VIEW"}.}
 
 \item{endpoint}{The endpoint URL for executing queries.}
 
 \item{verbosity}{The verbosity level of the API request (0 = none, 1 = minimal, 2 = detailed).}
+
+\item{auth_endpoint}{The endpoint URL for generating the token.}
 }
 \value{
 A tibble containing all data from the specified base.
@@ -24,11 +28,9 @@ A tibble containing all data from the specified base.
 This function downloads all data from a specified base using the query \verb{SELECT * FROM base_name}.
 }
 \examples{
-\donttest{
 \dontrun{
 data <- plug_download_base(
   base_name = "Contratos_VIEW"
 )
-}
 }
 }

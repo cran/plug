@@ -6,13 +6,16 @@
 \usage{
 plug_get_valid_token(
   validity_time = 3600,
-  endpoint = "https://plug.der.pe.gov.br/MadrixApi/authenticate/"
+  endpoint = "https://plug.der.pe.gov.br/MadrixApi/authenticate/",
+  force = FALSE
 )
 }
 \arguments{
 \item{validity_time}{The validity period of the token in seconds. Default is 3600 (1 hour).}
 
 \item{endpoint}{The endpoint URL for generating the token.}
+
+\item{force}{If \code{TRUE}, ignores the cached token and always requests a new one.}
 }
 \value{
 The valid token as a string, or \code{NULL} if no valid credentials were found or an error occurred.
@@ -21,12 +24,10 @@ The valid token as a string, or \code{NULL} if no valid credentials were found o
 This function checks if a valid global token exists for the Plug API. If no valid token is found,
 it generates a new token using the stored global credentials by sending a properly formatted request.
 If it fails to retrieve the token (for example, due to missing credentials or network issues),
-it will not throw an error but will display a message in English ("No valid credentials found.") and return \code{NULL}.
+it will not throw an error but will display a message explaining the problem and return \code{NULL}.
 }
 \examples{
-\donttest{
 \dontrun{
 token <- plug_get_valid_token(validity_time = 3600)
-}
 }
 }

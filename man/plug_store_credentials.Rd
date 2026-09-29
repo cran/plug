@@ -16,7 +16,15 @@ No return value. The credentials are securely stored.
 }
 \description{
 This function securely stores the global username and password required to authenticate with the Plug application.
+Any cached token is discarded, so the next request authenticates with the new credentials.
 }
 \examples{
+# Use a temporary, in-memory keyring so the example does not touch
+# the credentials stored in the system keyring
+old <- options(keyring_backend = "env")
+
 plug_store_credentials("myusername", "mypassword")
+plug_clear_credentials()
+
+options(old)
 }

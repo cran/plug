@@ -1,11 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# plug <a href="https://monitoramento.sepe.pe.gov.br/plug/"><img src="man/figures/logo.png" align="right" height="108" alt="plug website" /></a>
+# plug <a href="https://github.com/StrategicProjects/plug"><img src="man/figures/logo.png" align="right" height="108" alt="plug logo" /></a>
 
 <!-- badges: start -->
 
-![](https://img.shields.io/badge/devel%20version-0.1.0-blue.svg)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/plug)](https://CRAN.R-project.org/package=plug)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/plug)](https://CRAN.R-project.org/package=plug)
 <!-- badges: end -->
 
 The **Plug API Integration Package** provides an intuitive and secure
@@ -22,15 +25,17 @@ manage authentication tokens automatically.
 
 ## Installation
 
-You can install the development version of the package directly from
-GitHub:
+You can install the released version of the package from CRAN:
 
 ``` r
-# Install devtools if not already installed
-install.packages("devtools")
+install.packages("plug")
+```
 
-# Install the package
-devtools::install_github("StrategicProjects/plug")
+Or the development version from GitHub:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("StrategicProjects/plug")
 ```
 
 ## Features
@@ -39,8 +44,8 @@ devtools::install_github("StrategicProjects/plug")
   credentials with keyring.
 - **Token Management:** Automatically handle API token generation and
   expiration.
-- **Query Execution:** Execute custom SQL queries securely using the
-  Plug API.
+- **Query Execution:** Execute custom SQL queries using the Plug API,
+  with values safely inserted in query templates.
 - **Data Download:** Retrieve all data from specific tables with ease.
 
 ## Getting Started
@@ -49,6 +54,8 @@ Before using the package, you need to store your Plug API credentials
 securely:
 
 ``` r
+library(plug)
+
 # Store your username and password
 plug_store_credentials("your_username", "your_password")
 ```
@@ -63,39 +70,68 @@ you need to retrieve it manually, use:
 token <- plug_get_valid_token()
 ```
 
-## Listing Stored Credentials and Tokens
+## Listing and Removing Stored Credentials and Tokens
 
 You can list stored credentials and tokens:
 
 ``` r
-# List credentials
+# List credentials (the password is returned in plain text)
 credentials <- plug_list_credentials()
-print(credentials)
 
 # List tokens
 tokens <- plug_list_tokens()
-print(tokens)
+```
+
+And remove them from the keyring:
+
+``` r
+# Remove only the cached token
+plug_clear_credentials(credentials = FALSE)
+
+# Remove credentials and token
+plug_clear_credentials()
 ```
 
 ## Executing SQL Queries
 
-ou can execute custom SQL queries on the Plug API:
+You can execute custom SQL queries on the Plug API:
 
 ``` r
 # Example: Execute a query
-data <- plug_execute_query(sql_template = "SELECT * FROM Contratos_VIEW LIMIT 1")
+data <- plug_execute_query("SELECT TOP 1 * FROM Contratos_VIEW")
 ```
+
+Values can be safely inserted in the query with placeholders, using the
+same syntax as `glue::glue_sql()`:
+
+``` r
+data <- plug_execute_query(
+  "SELECT * FROM {`base`} WHERE Ano IN ({years*}) AND Situacao = {status}",
+  base = "Contratos_VIEW",
+  years = c(2023, 2024),
+  status = "Ativo"
+)
+```
+
+| Placeholder | Result                                                      |
+|-------------|-------------------------------------------------------------|
+| `{x}`       | A quoted value, such as `'Ativo'`, `2024` or `'2024-01-31'` |
+| `{x*}`      | All the values of `x` separated by commas, for `IN (...)`   |
+| `` {`x`} `` | A quoted identifier (table or column name), such as `[Ano]` |
+| `{I(x)}`    | The value of `x` as is, without quoting                     |
+
+## Downloading a Table
 
 ``` r
 # Example: Download All Data from a Table
 data <- plug_download_base(base_name = "Contratos_VIEW")
-print(data)
 ```
 
 ## Development
 
 This package is under active development. Contributions are welcome! If
-you encounter any issues, please open an issue on GitHub.
+you encounter any issues, please [open an issue on
+GitHub](https://github.com/StrategicProjects/plug/issues).
 
 ## License
 

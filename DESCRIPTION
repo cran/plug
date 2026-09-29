@@ -1,29 +1,45 @@
 Package: plug
 Type: Package
 Title: Secure and Intuitive Access to 'Plug' Interface
-Version: 0.1.0
-Date: 2025-01-09
+Version: 0.2.0
+Date: 2026-09-29
 Authors@R: c(
             person("Andre", "Leite", email = "leite@castlab.org", role = c("aut", "cre")),
             person("Felipe", "Ferreira", email = "felipe.ferreira@semobi.pe.gov.br", role = "aut"),
-            person("Hugo", "Vaconcelos", email = "hugo.vasconcelos@ufpe.br", role = "aut"),
+            person("Hugo", "Vasconcelos", email = "hugo.vasconcelos@ufpe.br", role = "aut"),
             person("Diogo", "Bezerra", email = "diogo.bezerra@ufpe.br", role = "aut"),
-            person("Roger", "Azevedo", email = "roger.azevedo@tpfe.com.br", role = "aut")
+            person("Roger", "Azevedo", email = "roger.azevedo@tpfe.com.br", role = "aut"),
+            person("Marcos", "Wasiliew", email = "marcos.wasiliew@gmail.com", role = "aut",
+                   comment = c(ORCID = "0009-0004-4694-3159")),
+            person("Júlia", "Nascimento Barreto", email = "juliabarreto@gd.seplag.pe.gov.br", role = "aut",
+                   comment = c(ORCID = "0009-0004-2851-7770"))
             )
-Description: Provides a secure and user-friendly interface to interact with the 'Plug' <https://plugbytpf.com.br> 'API'. It enables developers to store and manage tokens securely using the 'keyring' package, retrieve data from 'API' endpoints with the 'httr2' package, and handle large datasets with chunked data fetching. Designed for simplicity and security, the package facilitates seamless integration with 'Plug' ecosystem.
+Description: Provides a secure and user-friendly interface to interact with the
+    'Plug' <https://plugbytpf.com.br> 'API'. It enables developers to store and
+    manage credentials and tokens securely using the 'keyring' package, and to
+    retrieve data from 'API' endpoints with the 'httr2' package, using 'SQL'
+    queries built safely from templates. Designed for simplicity and security,
+    the package facilitates seamless integration with the 'Plug' ecosystem.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.3.2
-Imports: tibble, httr2, glue, keyring
-URL: <https://github.com/StrategicProjects/plug>
+Depends: R (>= 4.1.0)
+Imports: glue, httr2 (>= 1.0.0), keyring, tibble
+Suggests: testthat (>= 3.0.0), withr
+Config/testthat/edition: 3
+URL: https://github.com/StrategicProjects/plug
+BugReports: https://github.com/StrategicProjects/plug/issues
 Config/Needs/website: tidyverse/tidytemplate
+Config/roxygen2/version: 8.0.0
 NeedsCompilation: no
-Packaged: 2025-01-10 16:12:42 UTC; leite
+Packaged: 2026-09-29 11:30:37 UTC; leite
 Author: Andre Leite [aut, cre],
   Felipe Ferreira [aut],
-  Hugo Vaconcelos [aut],
+  Hugo Vasconcelos [aut],
   Diogo Bezerra [aut],
-  Roger Azevedo [aut]
+  Roger Azevedo [aut],
+  Marcos Wasiliew [aut] (ORCID: <https://orcid.org/0009-0004-4694-3159>),
+  Júlia Nascimento Barreto [aut] (ORCID:
+    <https://orcid.org/0009-0004-2851-7770>)
 Maintainer: Andre Leite <leite@castlab.org>
 Repository: CRAN
-Date/Publication: 2025-01-13 17:50:07 UTC
+Date/Publication: 2026-09-29 12:40:09 UTC
